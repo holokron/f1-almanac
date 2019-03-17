@@ -7,12 +7,6 @@ const axios = create({
     baseURL: API_HOST,
 })
 
-axios.interceptors.request.use(request => {
-    console.log('Starting Request', `${request.baseURL}${request.url}`)
-    
-    return request
-})
-
 exports.createPages = async ({ actions }) => {
     const { createPage } = actions
     const promises = []
@@ -71,6 +65,22 @@ exports.createPages = async ({ actions }) => {
                         context: {
                             season,
                             teamsList,
+                        },
+                    })
+                }))
+        )
+
+        promises.push(
+            axios.get(`/${season.season}.json`)
+                .then((response => {
+                    const racesList = response.data.MRData.RaceTable.Races
+
+                    return createPage({
+                        path: `/seasons/${season.season}/races`,
+                        component: path.resolve(__dirname, 'src/layouts/Races.tsx'),
+                        context: {
+                            season,
+                            racesList,
                         },
                     })
                 }))

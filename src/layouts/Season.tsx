@@ -1,8 +1,8 @@
 import * as React from "react"
-import { Box, Text, Grid } from "grommet"
+import { Card, List } from "antd"
 import Base from "./Base"
 import { SeasonListItem } from "../types/Season"
-import Card from "../components/Card"
+import { Link } from "gatsby"
 
 interface Props {
   pageContext: {
@@ -10,59 +10,72 @@ interface Props {
   }
 }
 
+interface SiteDataItem {
+  link: string
+  title: string
+}
+
+function getSiteData(season: string): SiteDataItem[] {
+  return [
+    {
+      link: `/seasons/${season}/drivers`,
+      title: "Drivers",
+    },
+    {
+      link: `/seasons/${season}/teams`,
+      title: "Teams",
+    },
+    {
+      link: `/seasons/${season}/races`,
+      title: "Races",
+    },
+    {
+      link: `/seasons/${season}/results`,
+      title: "Results",
+    },
+  ]
+}
+
 export default function Season({
   pageContext,
 }: Props): React.ReactElement<Props> {
+  const { season } = pageContext.season
+
   return (
-    <Base>
-      <Grid
-        rows={["xxsmall", "auto"]}
-        columns={["auto"]}
-        areas={[
-          { name: "seasonTitle", start: [0, 0], end: [0, 0] },
-          { name: "seasonContent", start: [0, 1], end: [0, 1] },
-        ]}
-      >
-        <Box align="center" justify="center" gridArea="seasonTitle">
-          <Text size="xlarge">{pageContext.season.season}</Text>
-        </Box>
-        <Grid
-          gap="large"
-          margin={{
-            bottom: "large",
-          }}
-          gridArea="seasonContent"
-          columns={["auto", "auto"]}
-          rows={["auto", "auto"]}
-          areas={[
-            { name: "drivers", start: [0, 0], end: [0, 0] },
-            { name: "teams", start: [1, 0], end: [1, 0] },
-            { name: "races", start: [0, 1], end: [0, 1] },
-            { name: "results", start: [1, 1], end: [1, 1] },
-          ]}
-        >
-          <Card
-            label="Drivers"
-            gridArea="drivers"
-            link={`/seasons/${pageContext.season.season}/drivers`}
-          />
-          <Card
-            label="Teams"
-            gridArea="teams"
-            link={`/seasons/${pageContext.season.season}/teams`}
-          />
-          <Card
-            label="Races"
-            gridArea="races"
-            link={`/seasons/${pageContext.season.season}/races`}
-          />
-          <Card
-            label="Results"
-            gridArea="results"
-            link={`/seasons/${pageContext.season.season}/results`}
-          />
-        </Grid>
-      </Grid>
+    <Base
+      title={`Season ${season}`}
+      breadcrumbs={[
+        {
+          name: "Home",
+          path: "/",
+        },
+        {
+          name: "Seasons",
+          path: "/",
+        },
+        {
+          name: season,
+          path: `/seasons/${season}`,
+        },
+      ]}
+    >
+      <List
+        grid={{
+          gutter: 32,
+          md: 4,
+          sm: 2,
+        }}
+        dataSource={getSiteData(season)}
+        renderItem={(item: SiteDataItem) => (
+          <List.Item>
+            <Link to={item.link}>
+              <Card hoverable>
+                <strong>{item.title}</strong>
+              </Card>
+            </Link>
+          </List.Item>
+        )}
+      />
     </Base>
   )
 }

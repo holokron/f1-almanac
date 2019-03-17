@@ -1,8 +1,8 @@
 import * as React from "react"
-import { Grid } from "grommet"
+import { Link } from "gatsby"
+import { Card, List } from "antd"
 import Base from "./Base"
-import { SeasonsList } from "../types/Season"
-import Card from "../components/Card"
+import { SeasonsList, SeasonListItem } from "../types/Season"
 
 interface Props {
   pageContext: {
@@ -14,23 +14,31 @@ export default function Home({
   pageContext,
 }: Props): React.ReactElement<Props> {
   return (
-    <Base>
-      <Grid
-        gap="medium"
-        margin="large"
-        columns={{
-          count: "fit",
-          size: "small",
+    <Base
+      title="Home"
+      breadcrumbs={[
+        {
+          path: "/",
+          name: "Home",
+        },
+      ]}
+    >
+      <List
+        grid={{
+          gutter: 32,
+          md: 4,
         }}
-      >
-        {pageContext.seasonsList.map(season => (
-          <Card
-            label={season.season}
-            key={season.season}
-            link={`/seasons/${season.season}`}
-          />
-        ))}
-      </Grid>
+        dataSource={pageContext.seasonsList}
+        renderItem={(season: SeasonListItem) => (
+          <List.Item>
+            <Link to={`/seasons/${season.season}`}>
+              <Card hoverable>
+                <strong>{season.season}</strong>
+              </Card>
+            </Link>
+          </List.Item>
+        )}
+      />
     </Base>
   )
 }

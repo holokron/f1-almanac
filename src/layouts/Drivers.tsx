@@ -1,9 +1,8 @@
 import * as React from "react"
-import { Box, Text, Grid, DataTable } from "grommet"
-import { Link } from "gatsby"
+import { Table } from "antd"
 import Base from "./Base"
 import { SeasonListItem } from "../types/Season"
-import { DriversList, DriverListItem } from "../types/Driver"
+import { DriversList } from "../types/Driver"
 
 interface Props {
   pageContext: {
@@ -15,64 +14,63 @@ interface Props {
 export default function Drivers({
   pageContext,
 }: Props): React.ReactElement<Props> {
+  const { season } = pageContext.season
+
   return (
-    <Base>
-      <Grid
-        rows={["xxsmall", "auto"]}
-        columns={["auto"]}
-        areas={[
-          { name: "driversTitle", start: [0, 0], end: [0, 0] },
-          { name: "driversContent", start: [0, 1], end: [0, 1] },
+    <Base
+      title={`Drivers of season ${season}`}
+      breadcrumbs={[
+        {
+          name: "Home",
+          path: "/",
+        },
+        {
+          name: "Seasons",
+          path: "/",
+        },
+        {
+          name: season,
+          path: `/seasons/${season}`,
+        },
+      ]}
+    >
+      <Table
+        pagination={false}
+        size="small"
+        rowKey="driverId"
+        columns={[
+          {
+            title: "Code",
+            dataIndex: "code",
+          },
+          {
+            title: "Number",
+            dataIndex: "permanentNumber",
+          },
+          {
+            title: "Given name",
+            dataIndex: "givenName",
+          },
+          {
+            title: "Family name",
+            dataIndex: "familyName",
+          },
+          {
+            title: "Nationality",
+            dataIndex: "nationality",
+          },
+          {
+            title: "Info",
+            dataIndex: "url",
+            render: (url: string) => (
+              <a href={url} target="_blank">
+                Biography
+              </a>
+            ),
+          },
         ]}
-      >
-        <Box align="center" justify="center" gridArea="driversTitle">
-          <Text size="xlarge">
-            Drivers of season{" "}
-            <Link to={`/seasons/${pageContext.season.season}`}>
-              {pageContext.season.season}
-            </Link>
-          </Text>
-        </Box>
-        <Box margin="medium" gridArea="driversContent">
-          <DataTable
-            columns={[
-              {
-                header: <Text>Code</Text>,
-                property: "code",
-              },
-              {
-                header: <Text>Number</Text>,
-                property: "permanentNumber",
-              },
-              {
-                header: <Text>Given name</Text>,
-                property: "givenName",
-              },
-              {
-                header: <Text>Family name</Text>,
-                property: "familyName",
-                primary: true,
-              },
-              {
-                header: <Text>Nationality</Text>,
-                property: "nationality",
-              },
-              {
-                header: <Text>Info</Text>,
-                property: "url",
-                render: (driver: DriverListItem) => (
-                  <Text>
-                    <a href={driver.url} target="_blank">
-                      Biography
-                    </a>
-                  </Text>
-                ),
-              },
-            ]}
-            data={pageContext.driversList}
-          />
-        </Box>
-      </Grid>
+        dataSource={pageContext.driversList}
+      />
     </Base>
   )
 }
