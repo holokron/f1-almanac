@@ -19,7 +19,7 @@ export default React.memo(
     title,
   }: BaseProps): React.ReactElement<BaseProps> => (
     <Layout>
-      <Layout.Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+      <Layout.Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
         <Header />
       </Layout.Header>
       <Layout.Content style={{ marginTop: 64 }}>

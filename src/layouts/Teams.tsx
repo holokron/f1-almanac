@@ -11,28 +11,30 @@ interface TeamsProps {
   }
 }
 
-export default React.memo(({ pageContext }: TeamsProps): React.ReactElement<TeamsProps> => {
-  const { season } = pageContext.season
+export default React.memo(
+  ({ pageContext }: TeamsProps): React.ReactElement<TeamsProps> => {
+    const { season } = pageContext.season
 
-  return (
-    <Base
-      title={`Teams of season ${season}`}
-      breadcrumbs={[
-        {
-          name: "Home",
-          path: "/",
-        },
-        {
-          name: "Seasons",
-          path: "/",
-        },
-        {
-          name: season,
-          path: `/seasons/${season}`,
-        },
-      ]}
-    >
-      <TeamsTable data={pageContext.teamsList} />
-    </Base>
-  )
-})
+    return (
+      <Base
+        title={`Teams of season ${season}`}
+        breadcrumbs={[
+          {
+            name: "Home",
+            path: "/",
+          },
+          {
+            name: "Seasons",
+            path: "/",
+          },
+          {
+            name: season,
+            path: `/seasons/${season}`,
+          },
+        ]}
+      >
+        <TeamsTable data={pageContext.teamsList} />
+      </Base>
+    )
+  }
+)

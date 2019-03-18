@@ -11,28 +11,30 @@ interface DriversProps {
   }
 }
 
-export default React.memo(({ pageContext }: DriversProps): React.ReactElement<DriversProps> => {
-  const { season } = pageContext.season
+export default React.memo(
+  ({ pageContext }: DriversProps): React.ReactElement<DriversProps> => {
+    const { season } = pageContext.season
 
-  return (
-    <Base
-      title={`Drivers of season ${season}`}
-      breadcrumbs={[
-        {
-          name: "Home",
-          path: "/",
-        },
-        {
-          name: "Seasons",
-          path: "/",
-        },
-        {
-          name: season,
-          path: `/seasons/${season}`,
-        },
-      ]}
-    >
-      <DriversTable data={pageContext.driversList} />
-    </Base>
-  )
-})
+    return (
+      <Base
+        title={`Drivers of season ${season}`}
+        breadcrumbs={[
+          {
+            name: "Home",
+            path: "/",
+          },
+          {
+            name: "Seasons",
+            path: "/",
+          },
+          {
+            name: season,
+            path: `/seasons/${season}`,
+          },
+        ]}
+      >
+        <DriversTable data={pageContext.driversList} />
+      </Base>
+    )
+  }
+)

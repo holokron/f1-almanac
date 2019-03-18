@@ -36,44 +36,46 @@ function getSiteData(season: string): SiteDataItem[] {
   ]
 }
 
-export default React.memo(({ pageContext }: SeasonProps): React.ReactElement<SeasonProps> => {
-  const { season } = pageContext.season
+export default React.memo(
+  ({ pageContext }: SeasonProps): React.ReactElement<SeasonProps> => {
+    const { season } = pageContext.season
 
-  return (
-    <Base
-      title={`Season ${season}`}
-      breadcrumbs={[
-        {
-          name: "Home",
-          path: "/",
-        },
-        {
-          name: "Seasons",
-          path: "/",
-        },
-        {
-          name: season,
-          path: `/seasons/${season}`,
-        },
-      ]}
-    >
-      <List
-        grid={{
-          gutter: 32,
-          md: 4,
-          sm: 2,
-        }}
-        dataSource={getSiteData(season)}
-        renderItem={(item: SiteDataItem) => (
-          <List.Item>
-            <Link to={item.link}>
-              <Card hoverable>
-                <strong>{item.title}</strong>
-              </Card>
-            </Link>
-          </List.Item>
-        )}
-      />
-    </Base>
-  )
-})
+    return (
+      <Base
+        title={`Season ${season}`}
+        breadcrumbs={[
+          {
+            name: "Home",
+            path: "/",
+          },
+          {
+            name: "Seasons",
+            path: "/",
+          },
+          {
+            name: season,
+            path: `/seasons/${season}`,
+          },
+        ]}
+      >
+        <List
+          grid={{
+            gutter: 32,
+            md: 4,
+            sm: 2,
+          }}
+          dataSource={getSiteData(season)}
+          renderItem={(item: SiteDataItem) => (
+            <List.Item>
+              <Link to={item.link}>
+                <Card hoverable>
+                  <strong>{item.title}</strong>
+                </Card>
+              </Link>
+            </List.Item>
+          )}
+        />
+      </Base>
+    )
+  }
+)
