@@ -5,8 +5,10 @@ module.exports = {
     author: `michalv8@gmail.com`,
   },
   plugins: [
+    `gatsby-plugin-scss-typescript`,
     `gatsby-plugin-typescript`,
     `gatsby-plugin-typescript-checker`,
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-react-svg`,
   ],
 }

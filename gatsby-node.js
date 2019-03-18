@@ -16,6 +16,7 @@ exports.createPages = async ({ actions }) => {
             limit: 100,
         },
     })
+    
     const seasonsList = seasonsListResponse.data.MRData.SeasonTable.Seasons.reverse()
     promises.push(
         createPage({

@@ -1,20 +1,17 @@
 import * as React from "react"
-import { Col, Row, Table } from "antd"
 import Base from "./Base"
 import { SeasonListItem } from "../types/Season"
 import { RacesList } from "../types/Race"
-import { Circuit } from "../types/Circuit"
+import RacesTable from "../components/RacesTable"
 
-interface Props {
+interface RacesProps {
   pageContext: {
     season: SeasonListItem
     racesList: RacesList
   }
 }
 
-export default function Races({
-  pageContext,
-}: Props): React.ReactElement<Props> {
+export default React.memo(({ pageContext }: RacesProps): React.ReactElement<RacesProps> => {
   const { season } = pageContext.season
 
   return (
@@ -35,45 +32,7 @@ export default function Races({
         },
       ]}
     >
-      <Row>
-        <Col span={24}>
-          <Table
-            bordered
-            size="small"
-            rowKey="round"
-            pagination={false}
-            columns={[
-              {
-                title: "Round",
-                dataIndex: "round",
-              },
-              {
-                title: "Date",
-                dataIndex: "date",
-              },
-              {
-                title: "Name",
-                dataIndex: "raceName",
-              },
-              {
-                title: "Circuit",
-                dataIndex: "Circuit",
-                render: (circuit: Circuit) => circuit.circuitName,
-              },
-              {
-                title: "Info",
-                dataIndex: "url",
-                render: (url: string) => (
-                  <a href={url} target="_blank">
-                    Review
-                  </a>
-                ),
-              },
-            ]}
-            dataSource={pageContext.racesList}
-          />
-        </Col>
-      </Row>
+      <RacesTable data={pageContext.racesList} />
     </Base>
   )
-}
+})

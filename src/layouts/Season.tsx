@@ -4,7 +4,7 @@ import Base from "./Base"
 import { SeasonListItem } from "../types/Season"
 import { Link } from "gatsby"
 
-interface Props {
+interface SeasonProps {
   pageContext: {
     season: SeasonListItem
   }
@@ -36,9 +36,7 @@ function getSiteData(season: string): SiteDataItem[] {
   ]
 }
 
-export default function Season({
-  pageContext,
-}: Props): React.ReactElement<Props> {
+export default React.memo(({ pageContext }: SeasonProps): React.ReactElement<SeasonProps> => {
   const { season } = pageContext.season
 
   return (
@@ -78,4 +76,4 @@ export default function Season({
       />
     </Base>
   )
-}
+})

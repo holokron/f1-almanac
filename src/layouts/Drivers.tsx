@@ -1,19 +1,17 @@
 import * as React from "react"
-import { Table } from "antd"
 import Base from "./Base"
 import { SeasonListItem } from "../types/Season"
 import { DriversList } from "../types/Driver"
+import DriversTable from "../components/DriversTable"
 
-interface Props {
+interface DriversProps {
   pageContext: {
     season: SeasonListItem
     driversList: DriversList
   }
 }
 
-export default function Drivers({
-  pageContext,
-}: Props): React.ReactElement<Props> {
+export default React.memo(({ pageContext }: DriversProps): React.ReactElement<DriversProps> => {
   const { season } = pageContext.season
 
   return (
@@ -34,43 +32,7 @@ export default function Drivers({
         },
       ]}
     >
-      <Table
-        pagination={false}
-        size="small"
-        rowKey="driverId"
-        columns={[
-          {
-            title: "Code",
-            dataIndex: "code",
-          },
-          {
-            title: "Number",
-            dataIndex: "permanentNumber",
-          },
-          {
-            title: "Given name",
-            dataIndex: "givenName",
-          },
-          {
-            title: "Family name",
-            dataIndex: "familyName",
-          },
-          {
-            title: "Nationality",
-            dataIndex: "nationality",
-          },
-          {
-            title: "Info",
-            dataIndex: "url",
-            render: (url: string) => (
-              <a href={url} target="_blank">
-                Biography
-              </a>
-            ),
-          },
-        ]}
-        dataSource={pageContext.driversList}
-      />
+      <DriversTable data={pageContext.driversList} />
     </Base>
   )
-}
+})

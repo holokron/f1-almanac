@@ -1,49 +1,35 @@
 import * as React from "react"
-import { Link } from "gatsby"
-import { Layout, Row, PageHeader } from "antd"
+import { Layout } from "antd"
 import "antd/dist/antd.css"
+import Header from "../components/Header"
+import Footer from "../components/Footer"
+import { Breadcrumb } from "../types/Breadcrumb"
+import Content from "../components/Content"
 
-interface Breadcrumb {
-  path: string
-  name: string
-}
-
-interface Props {
+interface BaseProps {
   breadcrumbs: Breadcrumb[]
   children: React.ReactNode
   title: string
 }
 
-export default function Base({
-  breadcrumbs,
-  children,
-  title,
-}: Props): React.ReactElement<Props> {
-  return (
+export default React.memo(
+  ({
+    breadcrumbs,
+    children,
+    title,
+  }: BaseProps): React.ReactElement<BaseProps> => (
     <Layout>
-      <Layout.Header>Formula 1 Almanac</Layout.Header>
-      <Layout.Content>
-        <Row style={{ padding: 32 }}>
-          <PageHeader
-            style={{ marginBottom: 32 }}
-            title={title}
-            breadcrumb={{
-              routes: breadcrumbs.map((item: Breadcrumb) => ({
-                path: item.path,
-                breadcrumbName: item.name,
-              })),
-              itemRender: (
-                route: any,
-                params: any,
-                routes: Array<any>,
-                paths: Array<string>
-              ) => <Link to={route.path}>{route.breadcrumbName}</Link>,
-            }}
-          />
+      <Layout.Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+        <Header />
+      </Layout.Header>
+      <Layout.Content style={{ marginTop: 64 }}>
+        <Content title={title} breadcrumbs={breadcrumbs}>
           {children}
-        </Row>
+        </Content>
       </Layout.Content>
-      <Layout.Footer>2019 &copy; Yogi</Layout.Footer>
+      <Layout.Footer>
+        <Footer />
+      </Layout.Footer>
     </Layout>
   )
-}
+)

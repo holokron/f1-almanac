@@ -1,19 +1,17 @@
 import * as React from "react"
-import { Table } from "antd"
 import Base from "./Base"
 import { SeasonListItem } from "../types/Season"
 import { TeamsList } from "../types/Team"
+import TeamsTable from "../components/TeamsTable"
 
-interface Props {
+interface TeamsProps {
   pageContext: {
     season: SeasonListItem
     teamsList: TeamsList
   }
 }
 
-export default function Teams({
-  pageContext,
-}: Props): React.ReactElement<Props> {
+export default React.memo(({ pageContext }: TeamsProps): React.ReactElement<TeamsProps> => {
   const { season } = pageContext.season
 
   return (
@@ -34,32 +32,7 @@ export default function Teams({
         },
       ]}
     >
-      <Table
-        bordered
-        pagination={false}
-        size="small"
-        rowKey="constructorId"
-        columns={[
-          {
-            title: "Name",
-            dataIndex: "name",
-          },
-          {
-            title: "Nationality",
-            dataIndex: "nationality",
-          },
-          {
-            title: "Info",
-            dataIndex: "url",
-            render: (url: string) => (
-              <a href={url} target="_blank">
-                Review
-              </a>
-            ),
-          },
-        ]}
-        dataSource={pageContext.teamsList}
-      />
+      <TeamsTable data={pageContext.teamsList} />
     </Base>
   )
-}
+})
