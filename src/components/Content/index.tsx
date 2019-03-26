@@ -2,12 +2,13 @@ import * as React from "react"
 import { Row, PageHeader } from "antd"
 import * as styles from "./index.styles.scss"
 import { Breadcrumb } from "../../types/Breadcrumb"
-import { Link } from "gatsby"
+import { Link, navigate } from "gatsby"
 
 interface ContentProps {
   breadcrumbs: Breadcrumb[]
   children: React.ReactNode
   title: string
+  navigateBack?: string
 }
 
 export default React.memo(
@@ -15,15 +16,17 @@ export default React.memo(
     breadcrumbs,
     children,
     title,
+    navigateBack,
   }: ContentProps): React.ReactElement<ContentProps> => (
     <Row className={styles.contentRow}>
       <PageHeader
+        onBack={navigateBack ? () => navigate(navigateBack) : undefined}
         className={styles.contentPageHeader}
         title={title}
         breadcrumb={{
           routes: breadcrumbs.map((item: Breadcrumb) => ({
-            path: item.path,
             breadcrumbName: item.name,
+            path: item.path,
           })),
           itemRender: (
             route: any,

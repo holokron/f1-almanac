@@ -10,5 +10,12 @@ module.exports = {
     `gatsby-plugin-typescript-checker`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-react-svg`,
+    `gatsby-transformer-json`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `./data/`
+      },
+    }
   ],
 }

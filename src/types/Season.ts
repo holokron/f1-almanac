@@ -1,6 +1,6 @@
-export interface SeasonListItem {
+export interface Season {
   season: string
   url: string
 }
 
-export type SeasonsList = SeasonListItem[]
+export type SeasonsList = Season[]

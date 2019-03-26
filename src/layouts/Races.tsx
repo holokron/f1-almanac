@@ -1,40 +1,77 @@
 import * as React from "react"
 import Base from "./Base"
-import { SeasonListItem } from "../types/Season"
 import { RacesList } from "../types/Race"
 import RacesTable from "../components/RacesTable"
+import { graphql } from "gatsby"
 
 interface RacesProps {
   pageContext: {
-    season: SeasonListItem
-    racesList: RacesList
+    season: string
+  }
+  data: {
+    dataJson: {
+      RaceTable: {
+        Races: RacesList
+      }
+    }
   }
 }
 
-export default React.memo(
-  ({ pageContext }: RacesProps): React.ReactElement<RacesProps> => {
-    const { season } = pageContext.season
+export default function Races({
+  data,
+  pageContext,
+}: RacesProps): React.ReactElement<RacesProps> {
+  const season = pageContext.season
+  const races = data.dataJson.RaceTable.Races
 
-    return (
-      <Base
-        title={`Races of season ${season}`}
-        breadcrumbs={[
-          {
-            name: "Home",
-            path: "/",
-          },
-          {
-            name: "Seasons",
-            path: "/",
-          },
-          {
-            name: season,
-            path: `/seasons/${season}`,
-          },
-        ]}
-      >
-        <RacesTable data={pageContext.racesList} />
-      </Base>
-    )
+  return (
+    <Base
+      title={`Races of season ${season}`}
+      breadcrumbs={[
+        {
+          name: "Home",
+          path: "/",
+        },
+        {
+          name: "Seasons",
+          path: "/seasons",
+        },
+        {
+          name: season,
+          path: `/seasons/${season}`,
+        },
+      ]}
+    >
+      <RacesTable data={races} />
+    </Base>
+  )
+}
+
+export const query = graphql`
+  query($season: Date!) {
+    dataJson(RaceTable: { season: { eq: $season } }) {
+      RaceTable {
+        season
+        Races {
+          season
+          round
+          url
+          raceName
+          Circuit {
+            circuitId
+            url
+            circuitName
+            Location {
+              lat
+              long
+              locality
+              country
+            }
+          }
+          date
+          time
+        }
+      }
+    }
   }
-)
+`

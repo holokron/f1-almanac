@@ -1,4 +1,4 @@
-export interface DriverListItem {
+export interface Driver {
   driverId: string
   permanentNumber?: string
   code?: string
@@ -9,4 +9,4 @@ export interface DriverListItem {
   nationality: string
 }
 
-export type DriversList = DriverListItem[]
+export type DriversList = Driver[]

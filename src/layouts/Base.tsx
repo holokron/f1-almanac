@@ -10,20 +10,26 @@ interface BaseProps {
   breadcrumbs: Breadcrumb[]
   children: React.ReactNode
   title: string
+  navigateBack?: string
 }
 
-export default React.memo(
-  ({
-    breadcrumbs,
-    children,
-    title,
-  }: BaseProps): React.ReactElement<BaseProps> => (
+export default function Base({
+  breadcrumbs,
+  children,
+  title,
+  navigateBack,
+}: BaseProps): React.ReactElement<BaseProps> {
+  return (
     <Layout>
       <Layout.Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
         <Header />
       </Layout.Header>
       <Layout.Content style={{ marginTop: 64 }}>
-        <Content title={title} breadcrumbs={breadcrumbs}>
+        <Content
+          title={title}
+          breadcrumbs={breadcrumbs}
+          navigateBack={navigateBack}
+        >
           {children}
         </Content>
       </Layout.Content>
@@ -32,4 +38,4 @@ export default React.memo(
       </Layout.Footer>
     </Layout>
   )
-)
+}

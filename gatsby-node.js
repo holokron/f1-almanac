@@ -1,91 +1,69 @@
-const create = require("axios").create
 const path = require("path")
 
-const API_HOST = "http://ergast.com/api/f1"
-
-const axios = create({
-    baseURL: API_HOST,
-})
-
-exports.createPages = async ({ actions }) => {
+exports.createPages = ({ actions, graphql }) => {
     const { createPage } = actions
     const promises = []
 
-    const seasonsListResponse = await axios.get('/seasons.json', {
-        params: {
-            limit: 100,
-        },
-    })
-    
-    const seasonsList = seasonsListResponse.data.MRData.SeasonTable.Seasons.reverse()
     promises.push(
         createPage({
-            path: '/',
-            component: path.resolve(__dirname, 'src/layouts/Home.tsx'),
-            context: {
-                seasonsList,
-            },
+            path: "/seasons",
+            component: path.resolve(__dirname, "src", "layouts", "Seasons.tsx"),
         })
     )
 
-    seasonsList.forEach((season) => {
-        promises.push(
-            createPage({
-                path: `/seasons/${season.season}`,
-                component: path.resolve(__dirname, 'src/layouts/Season.tsx'),
-                context: {
-                    season,
-                },
-            })
-        )
+    graphql(`
+        {
+            dataJson (SeasonTable: {Seasons: {elemMatch: {season: {ne: null}}}}) {
+                SeasonTable {
+                    Seasons {
+                        season
+                        url
+                    }
+                }
+            }
+        }
+    `).then((result) => {
+        result.data.dataJson.SeasonTable.Seasons.forEach((season) => {
+            promises.push(
+                createPage({
+                    path: `/seasons/${season.season}`,
+                    component: path.resolve(__dirname, 'src', 'layouts', 'Season.tsx'),
+                    context: {
+                        season: season.season,
+                    },
+                })
+            )
 
-        promises.push(
-            axios.get(`/${season.season}/drivers.json`)
-                .then((response => {
-                    const driversList = response.data.MRData.DriverTable.Drivers
+            promises.push(
+                createPage({
+                    path: `/seasons/${season.season}/drivers`,
+                    component: path.resolve(__dirname, 'src', 'layouts', 'Drivers.tsx'),
+                    context: {
+                        season: season.season,
+                    },
+                })
+            )
 
-                    return createPage({
-                        path: `/seasons/${season.season}/drivers`,
-                        component: path.resolve(__dirname, 'src/layouts/Drivers.tsx'),
-                        context: {
-                            season,
-                            driversList,
-                        },
-                    })
-                }))
-        )
+            promises.push(
+                createPage({
+                    path: `/seasons/${season.season}/teams`,
+                    component: path.resolve(__dirname, 'src', 'layouts', 'Teams.tsx'),
+                    context: {
+                        season: season.season,
+                    },
+                })
+            )
 
-        promises.push(
-            axios.get(`/${season.season}/constructors.json`)
-                .then((response => {
-                    const teamsList = response.data.MRData.ConstructorTable.Constructors
-
-                    return createPage({
-                        path: `/seasons/${season.season}/teams`,
-                        component: path.resolve(__dirname, 'src/layouts/Teams.tsx'),
-                        context: {
-                            season,
-                            teamsList,
-                        },
-                    })
-                }))
-        )
-
-        promises.push(
-            axios.get(`/${season.season}.json`)
-                .then((response => {
-                    const racesList = response.data.MRData.RaceTable.Races
-
-                    return createPage({
-                        path: `/seasons/${season.season}/races`,
-                        component: path.resolve(__dirname, 'src/layouts/Races.tsx'),
-                        context: {
-                            season,
-                            racesList,
-                        },
-                    })
-                }))
-        )
+            promises.push(
+                createPage({
+                    path: `/seasons/${season.season}/races`,
+                    component: path.resolve(__dirname, 'src', 'layouts', 'Races.tsx'),
+                    context: {
+                        season: season.season,
+                    },
+                })
+            )
+        })
     })
 
     return Promise.all(promises)

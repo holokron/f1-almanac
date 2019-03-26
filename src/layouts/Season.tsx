@@ -1,12 +1,11 @@
 import * as React from "react"
 import { Card, List } from "antd"
 import Base from "./Base"
-import { SeasonListItem } from "../types/Season"
 import { Link } from "gatsby"
 
 interface SeasonProps {
   pageContext: {
-    season: SeasonListItem
+    season: string
   }
 }
 
@@ -15,67 +14,56 @@ interface SiteDataItem {
   title: string
 }
 
-function getSiteData(season: string): SiteDataItem[] {
-  return [
-    {
-      link: `/seasons/${season}/drivers`,
-      title: "Drivers",
-    },
-    {
-      link: `/seasons/${season}/teams`,
-      title: "Teams",
-    },
-    {
-      link: `/seasons/${season}/races`,
-      title: "Races",
-    },
-    {
-      link: `/seasons/${season}/results`,
-      title: "Results",
-    },
-  ]
-}
+export default function Season({
+  pageContext,
+}: SeasonProps): React.ReactElement<SeasonProps> {
+  const season = pageContext.season
 
-export default React.memo(
-  ({ pageContext }: SeasonProps): React.ReactElement<SeasonProps> => {
-    const { season } = pageContext.season
-
-    return (
-      <Base
-        title={`Season ${season}`}
-        breadcrumbs={[
+  return (
+    <Base
+      navigateBack="/seasons"
+      title={`Season ${season}`}
+      breadcrumbs={[
+        {
+          name: "Home",
+          path: "/",
+        },
+        {
+          name: "Seasons",
+          path: "/seasons",
+        },
+      ]}
+    >
+      <List
+        grid={{
+          gutter: 32,
+          md: 4,
+          sm: 2,
+        }}
+        dataSource={[
           {
-            name: "Home",
-            path: "/",
+            link: `/seasons/${season}/drivers`,
+            title: "Drivers",
           },
           {
-            name: "Seasons",
-            path: "/",
+            link: `/seasons/${season}/teams`,
+            title: "Teams",
           },
           {
-            name: season,
-            path: `/seasons/${season}`,
+            link: `/seasons/${season}/races`,
+            title: "Races",
           },
         ]}
-      >
-        <List
-          grid={{
-            gutter: 32,
-            md: 4,
-            sm: 2,
-          }}
-          dataSource={getSiteData(season)}
-          renderItem={(item: SiteDataItem) => (
-            <List.Item>
-              <Link to={item.link}>
-                <Card hoverable>
-                  <strong>{item.title}</strong>
-                </Card>
-              </Link>
-            </List.Item>
-          )}
-        />
-      </Base>
-    )
-  }
-)
+        renderItem={(item: SiteDataItem) => (
+          <List.Item>
+            <Link to={item.link}>
+              <Card hoverable>
+                <strong>{item.title}</strong>
+              </Card>
+            </Link>
+          </List.Item>
+        )}
+      />
+    </Base>
+  )
+}

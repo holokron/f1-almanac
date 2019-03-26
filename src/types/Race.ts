@@ -1,6 +1,6 @@
 import { Circuit } from "./Circuit"
 
-export interface RaceListItem {
+export interface Race {
   season: string
   round: string
   url: string
@@ -10,4 +10,4 @@ export interface RaceListItem {
   time: Date
 }
 
-export type RacesList = RaceListItem[]
+export type RacesList = Race[]

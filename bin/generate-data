@@ -1,0 +1,95 @@
+#!/usr/bin/env node
+
+const program = require("commander")
+const path = require("path")
+const fs = require("fs")
+const { create } = require("../src/data-provider/client")
+const API_HOST = "http://ergast.com/api/f1"
+const client = create(API_HOST)
+
+function configure() {
+    program
+        .version("0.1.0")
+        .option("-s, --season <season>", "Season", (season, seasons) => { seasons.push(season); return seasons }, [])
+        .option("-d, --data-dir <dir>", "Directory for data", `${__dirname}/../data`)    
+}
+
+function execute() {
+    program.parse(process.argv)
+
+    const dataDir = path.resolve(program.dataDir)
+
+    console.log(`Data directory: ${dataDir}`)
+
+    const seasons = program.season
+    // const seasons = [...Array(68).keys()].map(i => i + 1950)
+
+    console.log(`Seasons: ${seasons.join(", ")}`)
+
+    Promise.all(seasons.map(season => downloadData(season, dataDir)))
+}
+
+function saveResponse(response, path) {
+    const data = JSON.stringify(response)
+
+    fs.writeFileSync(path, data)
+}
+
+function downloadData(season, dir) {
+    const seasonDir = dir
+    if (!fs.existsSync(seasonDir)) {
+        fs.mkdirSync(seasonDir, {
+            recursive: true,
+        })
+    }
+
+    return Promise.all([
+        downloadSeasonsData(seasonDir),
+        downloadDriversData(season, seasonDir),
+        downloadConstructorsData(season, seasonDir),
+        downloadRacesData(season, seasonDir),
+        downloadDriversStandingsData(season, seasonDir),
+        downloadConstructorsStandingsData(season, seasonDir),
+    ]).then(() => {
+        console.log(`Downloaded data for season: ${season}.`)    
+    })
+}
+
+async function downloadSeasonsData(seasonDir) {
+    const response = await client.getSeasonsList()
+
+    saveResponse(response.MRData, `${seasonDir}/seasons.json`)
+}
+
+async function downloadDriversData(season, seasonDir) {
+    const response = await client.getDriversForSeason(season)
+
+    saveResponse(response.MRData, `${seasonDir}/${season}-drivers.json`)
+}
+
+async function downloadConstructorsData(season, seasonDir) {
+    const response = await client.getConstructorsForSeason(season)
+
+    saveResponse(response.MRData, `${seasonDir}/${season}-constructors.json`)
+}
+
+async function downloadRacesData(season, seasonDir) {
+    const response = await client.getRacesForSeason(season)
+
+    saveResponse(response.MRData, `${seasonDir}/${season}-races.json`)
+}
+
+async function downloadDriversStandingsData(season, seasonDir) {
+    const driversStandingsResponse = await client.getDriversStandingsForSeason(season)
+
+    saveResponse(driversStandingsResponse.MRData, `${seasonDir}/${season}-driver-standings.json`)
+}
+
+async function downloadConstructorsStandingsData(season, seasonDir) {
+    const constructorsStandingsResponse = await client.getConstructorsStandingsForSeason(season)
+
+    saveResponse(constructorsStandingsResponse.MRData, `${seasonDir}/${season}-constructor-standings.json`)
+}
+
+configure()
+execute()

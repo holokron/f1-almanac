@@ -1,50 +1,43 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "f1-almanac",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Formula 1 database",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Michał Tęczyński <michalv8@gmail.com>",
   "dependencies": {
-    "antd": "^3.15.1",
+    "antd": "^3.15.2",
     "axios": "^0.18.0",
-    "gatsby": "^2.1.31",
-    "gatsby-image": "^2.0.33",
+    "axios-cache-adapter": "^2.3.0",
+    "gatsby": "^2.3.2",
+    "gatsby-image": "^2.0.35",
     "gatsby-plugin-manifest": "^2.0.24",
     "gatsby-plugin-offline": "^2.0.25",
-    "gatsby-plugin-react-helmet": "^3.0.9",
+    "gatsby-plugin-react-helmet": "^3.0.11",
     "gatsby-plugin-react-svg": "^2.1.1",
     "gatsby-plugin-scss-typescript": "^1.0.2",
-    "gatsby-plugin-sharp": "^2.0.28",
+    "gatsby-plugin-sharp": "^2.0.31",
     "gatsby-plugin-typescript": "^2.0.11",
     "gatsby-plugin-typescript-checker": "^1.0.3",
-    "gatsby-source-filesystem": "^2.0.24",
+    "gatsby-source-filesystem": "^2.0.28",
+    "gatsby-transformer-json": "^2.1.11",
     "gatsby-transformer-sharp": "^2.1.17",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5",
     "react-helmet": "^5.2.0"
   },
   "devDependencies": {
+    "commander": "^2.19.0",
     "prettier": "^1.16.4",
     "tslint": "^5.14.0",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.3.4000"
   },
-  "keywords": [
-    "gatsby"
-  ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
+    "build": "GATSBY_TELEMETRY_DISABLED=1 gatsby build",
+    "develop": "GATSBY_TELEMETRY_DISABLED=1 gatsby develop",
     "format": "prettier --write src/**/*.{ts,tsx}",
     "start": "npm run develop",
-    "serve": "gatsby serve",
+    "serve": "GATSBY_TELEMETRY_DISABLED=1 gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
   }
 }
