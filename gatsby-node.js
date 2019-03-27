@@ -63,6 +63,16 @@ exports.createPages = ({ actions, graphql }) => {
                     },
                 })
             )
+
+            promises.push(
+                createPage({
+                    path: `/seasons/${season.season}/standings`,
+                    component: path.resolve(__dirname, 'src', 'layouts', 'Standings.tsx'),
+                    context: {
+                        season: season.season,
+                    },
+                })
+            )
         })
     })
 

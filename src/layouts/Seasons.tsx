@@ -1,8 +1,8 @@
-import * as React from "react"
+import React from "react"
 import { Link, graphql } from "gatsby"
 import { Card, List } from "antd"
 import Base from "./Base"
-import { SeasonsList, Season } from "../types/Season"
+import { SeasonsList, Season } from "../types"
 
 interface SeasonsProps {
   data: {
@@ -17,7 +17,7 @@ interface SeasonsProps {
 export default function Seasons({
   data,
 }: SeasonsProps): React.ReactElement<SeasonsProps> {
-  const seasons = data.dataJson.SeasonTable.Seasons
+  const seasons = data.dataJson.SeasonTable.Seasons.reverse()
 
   return (
     <Base
@@ -44,7 +44,7 @@ export default function Seasons({
           position: "bottom",
           pageSize: 12,
         }}
-        dataSource={seasons.reverse()}
+        dataSource={seasons}
         renderItem={(season: Season) => (
           <List.Item>
             <Link to={`/seasons/${season.season}`}>

@@ -1,6 +1,6 @@
-import * as React from "react"
+import React from "react"
 import { Table } from "antd"
-import { DriversList } from "../../types/Driver"
+import { DriversList } from "../../types"
 
 interface DriversTableProps {
   data: DriversList
@@ -48,5 +48,5 @@ export default React.memo(
       ]}
       dataSource={data}
     />
-  )
+  ),
 )

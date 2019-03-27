@@ -3,13 +3,14 @@
 const program = require("commander")
 const path = require("path")
 const fs = require("fs")
-const { create } = require("../src/data-provider/client")
+const { create } = require("../src/lib/client")
 const API_HOST = "http://ergast.com/api/f1"
 const client = create(API_HOST)
 
 function configure() {
     program
         .version("0.1.0")
+        .option("-a, --all-seasons", "Download data from all season", false)
         .option("-s, --season <season>", "Season", (season, seasons) => { seasons.push(season); return seasons }, [])
         .option("-d, --data-dir <dir>", "Directory for data", `${__dirname}/../data`)    
 }
@@ -21,12 +22,19 @@ function execute() {
 
     console.log(`Data directory: ${dataDir}`)
 
-    const seasons = program.season
-    // const seasons = [...Array(68).keys()].map(i => i + 1950)
+    const seasons = program.allSeasons
+        ? getAllSeasons()
+        : program.seasons
 
     console.log(`Seasons: ${seasons.join(", ")}`)
 
     Promise.all(seasons.map(season => downloadData(season, dataDir)))
+}
+
+function getAllSeasons() {
+    const amount = (new Date().getFullYear()) - 1950 + 1
+
+    return [...Array(amount).keys()].map(i => i + 1950)
 }
 
 function saveResponse(response, path) {
@@ -50,7 +58,11 @@ function downloadData(season, dir) {
         downloadRacesData(season, seasonDir),
         downloadDriversStandingsData(season, seasonDir),
         downloadConstructorsStandingsData(season, seasonDir),
-    ]).then(() => {
+    ])
+    .catch(error => {
+        console.log(`Incomplete data for season: ${seasons} - ${error}`)
+    })
+    .then(() => {
         console.log(`Downloaded data for season: ${season}.`)    
     })
 }

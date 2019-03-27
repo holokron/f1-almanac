@@ -1,8 +1,9 @@
-import * as React from "react"
+import React from "react"
 import Base from "./Base"
-import { TeamsList } from "../types/Team"
+import { TeamsList } from "../types"
 import TeamsTable from "../components/TeamsTable"
 import { graphql } from "gatsby"
+import { Card } from "antd"
 
 interface TeamsProps {
   data: {
@@ -42,7 +43,9 @@ export default function Teams({
         },
       ]}
     >
-      <TeamsTable data={teams} />
+      <Card>
+        <TeamsTable data={teams} />
+      </Card>
     </Base>
   )
 }

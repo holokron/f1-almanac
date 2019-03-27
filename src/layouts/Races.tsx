@@ -1,8 +1,9 @@
-import * as React from "react"
+import React from "react"
 import Base from "./Base"
-import { RacesList } from "../types/Race"
+import { RacesList } from "../types"
 import RacesTable from "../components/RacesTable"
 import { graphql } from "gatsby"
+import { Card } from "antd"
 
 interface RacesProps {
   pageContext: {
@@ -42,7 +43,9 @@ export default function Races({
         },
       ]}
     >
-      <RacesTable data={races} />
+      <Card>
+        <RacesTable data={races} />
+      </Card>
     </Base>
   )
 }

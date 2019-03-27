@@ -1,8 +1,9 @@
-import * as React from "react"
+import React from "react"
 import { graphql } from "gatsby"
 import Base from "./Base"
-import { DriversList } from "../types/Driver"
+import { DriversList } from "../types"
 import DriversTable from "../components/DriversTable"
+import { Card } from "antd"
 
 interface DriversProps {
   pageContext: {
@@ -42,7 +43,9 @@ export default function Drivers({
         },
       ]}
     >
-      <DriversTable data={drivers} />
+      <Card>
+        <DriversTable data={drivers} />
+      </Card>
     </Base>
   )
 }

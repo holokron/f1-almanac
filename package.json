@@ -26,16 +26,18 @@
     "react-helmet": "^5.2.0"
   },
   "devDependencies": {
+    "axios-retry": "^3.1.2",
     "commander": "^2.19.0",
     "prettier": "^1.16.4",
     "tslint": "^5.14.0",
+    "tslint-react": "^4.0.0",
     "typescript": "^3.3.4000"
   },
   "license": "MIT",
   "scripts": {
     "build": "GATSBY_TELEMETRY_DISABLED=1 gatsby build",
     "develop": "GATSBY_TELEMETRY_DISABLED=1 gatsby develop",
-    "format": "prettier --write src/**/*.{ts,tsx}",
+    "format": "prettier --write src/**/*.{js,ts,tsx,scss,css}",
     "start": "npm run develop",
     "serve": "GATSBY_TELEMETRY_DISABLED=1 gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""

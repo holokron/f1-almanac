@@ -1,12 +1,8 @@
-import * as React from "react"
+import React from "react"
 import { Card, List } from "antd"
-import Base from "../layouts/Base"
 import { Link } from "gatsby"
-
-interface SiteDataItem {
-  link: string
-  title: string
-}
+import Base from "../layouts/Base"
+import { SiteDataItem } from "../types"
 
 export default React.memo(
   (): React.ReactElement => {
@@ -42,5 +38,5 @@ export default React.memo(
         />
       </Base>
     )
-  }
+  },
 )

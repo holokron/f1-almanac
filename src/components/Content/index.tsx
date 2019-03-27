@@ -1,7 +1,7 @@
-import * as React from "react"
+import React from "react"
 import { Row, PageHeader } from "antd"
 import * as styles from "./index.styles.scss"
-import { Breadcrumb } from "../../types/Breadcrumb"
+import { Breadcrumb } from "../../types"
 import { Link, navigate } from "gatsby"
 
 interface ContentProps {
@@ -32,11 +32,11 @@ export default React.memo(
             route: any,
             params: any,
             routes: Array<any>,
-            paths: Array<string>
+            paths: Array<string>,
           ) => <Link to={route.path}>{route.breadcrumbName}</Link>,
         }}
       />
       {children}
     </Row>
-  )
+  ),
 )

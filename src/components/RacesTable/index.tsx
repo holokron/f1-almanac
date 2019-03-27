@@ -1,7 +1,6 @@
-import * as React from "react"
+import React from "react"
 import { Table } from "antd"
-import { RacesList } from "../../types/Race"
-import { Circuit } from "../../types/Circuit"
+import { Circuit, RacesList } from "../../types"
 
 interface RacesTableProps {
   data: RacesList
@@ -13,7 +12,6 @@ export default React.memo(
       bodyStyle={{
         overflowX: "scroll",
       }}
-      bordered
       size="small"
       rowKey="round"
       pagination={false}
@@ -47,5 +45,5 @@ export default React.memo(
       ]}
       dataSource={data}
     />
-  )
+  ),
 )

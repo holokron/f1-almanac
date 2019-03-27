@@ -1,6 +1,6 @@
-import * as React from "react"
+import React from "react"
 import { Table } from "antd"
-import { TeamsList } from "../../types/Team"
+import { TeamsList } from "../../types"
 
 interface TeamsTableProps {
   data: TeamsList
@@ -9,10 +9,6 @@ interface TeamsTableProps {
 export default React.memo(
   ({ data }: TeamsTableProps): React.ReactElement<TeamsTableProps> => (
     <Table
-      bodyStyle={{
-        overflowX: "scroll",
-      }}
-      bordered
       pagination={false}
       size="small"
       rowKey="constructorId"
@@ -37,5 +33,5 @@ export default React.memo(
       ]}
       dataSource={data}
     />
-  )
+  ),
 )

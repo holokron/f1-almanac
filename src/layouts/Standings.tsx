@@ -1,21 +1,66 @@
-import * as React from "react"
-import { Tabs } from "antd"
+import React, { useState, useCallback } from "react"
+import { Card } from "antd"
 import Base from "./Base"
-import { Season } from "../types/Season"
-import { DriverStandingsList, TeamStandingsList } from "../types/Standings"
+import { graphql } from "gatsby"
+import { TeamStandingsList, DriverStandingsList } from "../types"
+import DriverStandingsTable from "../components/DriverStandingsTable"
+import TeamsStandingsTable from "../components/TeamsStandingsTable"
 
 interface StandingsProps {
+  data: {
+    allDataJson: {
+      nodes: {
+        StandingsTable: {
+          StandingsLists: {
+            season: string
+            round: string
+            ConstructorStandings: null | TeamStandingsList
+            DriverStandings: null | DriverStandingsList
+          }[]
+        }
+      }[]
+    }
+  }
   pageContext: {
-    season: Season
-    driversStandings: DriverStandingsList
-    teamsStandings: TeamStandingsList
+    season: string
   }
 }
 
 export default function Standings({
+  data,
   pageContext,
 }: StandingsProps): React.ReactElement<StandingsProps> {
-  const { season } = pageContext.season
+  const season = pageContext.season
+  const teamsStandings =
+    data.allDataJson.nodes[0].StandingsTable.StandingsLists.length > 0
+      ? data.allDataJson.nodes[0].StandingsTable.StandingsLists[0]
+          .ConstructorStandings || []
+      : []
+  const driversStandings =
+    data.allDataJson.nodes[1].StandingsTable.StandingsLists.length > 0
+      ? data.allDataJson.nodes[1].StandingsTable.StandingsLists[0]
+          .DriverStandings || []
+      : []
+
+  const [activeTabKey, setTabKey] = useState("drivers")
+
+  const handleTabChange = useCallback(key => setTabKey(key), [])
+
+  const tabs = {
+    drivers: <DriverStandingsTable data={driversStandings} />,
+    teams: <TeamsStandingsTable data={teamsStandings} />,
+  }
+
+  const tabList = [
+    {
+      key: "drivers",
+      tab: "Drivers",
+    },
+    {
+      key: "teams",
+      tab: "Teams",
+    },
+  ]
 
   return (
     <Base
@@ -35,14 +80,62 @@ export default function Standings({
         },
       ]}
     >
-      <Tabs defaultActiveKey="1">
-        <Tabs.TabPane tab="Drivers" key="1">
-          Drivers
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="Teams" key="2">
-          Teams
-        </Tabs.TabPane>
-      </Tabs>
+      <Card
+        activeTabKey={activeTabKey}
+        tabList={tabList}
+        onTabChange={handleTabChange}
+      >
+        {tabs[activeTabKey]}
+      </Card>
     </Base>
   )
 }
+
+export const query = graphql`
+  query($season: Date!) {
+    allDataJson(filter: { StandingsTable: { season: { eq: $season } } }) {
+      nodes {
+        StandingsTable {
+          StandingsLists {
+            season
+            round
+            ConstructorStandings {
+              position
+              positionText
+              points
+              wins
+              Constructor {
+                constructorId
+                url
+                name
+                nationality
+              }
+            }
+            DriverStandings {
+              position
+              positionText
+              points
+              wins
+              Driver {
+                driverId
+                url
+                givenName
+                familyName
+                dateOfBirth
+                nationality
+                code
+                permanentNumber
+              }
+              Constructors {
+                constructorId
+                url
+                name
+                nationality
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`

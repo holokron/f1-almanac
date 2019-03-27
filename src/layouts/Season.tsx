@@ -1,17 +1,13 @@
-import * as React from "react"
+import React from "react"
 import { Card, List } from "antd"
 import Base from "./Base"
 import { Link } from "gatsby"
+import { SiteDataItem } from "../types"
 
 interface SeasonProps {
   pageContext: {
     season: string
   }
-}
-
-interface SiteDataItem {
-  link: string
-  title: string
 }
 
 export default function Season({
@@ -52,6 +48,10 @@ export default function Season({
           {
             link: `/seasons/${season}/races`,
             title: "Races",
+          },
+          {
+            link: `/seasons/${season}/standings`,
+            title: "Standings",
           },
         ]}
         renderItem={(item: SiteDataItem) => (
