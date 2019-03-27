@@ -1,6 +1,5 @@
 import React from "react"
 import { Layout } from "antd"
-import "antd/dist/antd.css"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import { Breadcrumb } from "../types"

@@ -1,7 +1,7 @@
 import React from "react"
 import { Row } from "antd"
+import styles from "./index.module.css"
 import Logo from "./logo.svg"
-import * as styles from "./index.styles.scss"
 import { Link } from "gatsby"
 
 export default React.memo(

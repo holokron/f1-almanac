@@ -35,7 +35,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "GATSBY_TELEMETRY_DISABLED=1 gatsby build",
+    "build": "gatsby build",
     "develop": "GATSBY_TELEMETRY_DISABLED=1 gatsby develop",
     "format": "prettier --write src/**/*.{js,ts,tsx,scss,css}",
     "start": "npm run develop",

@@ -82,8 +82,9 @@ export default function Standings({
     >
       <Card
         activeTabKey={activeTabKey}
-        tabList={tabList}
+        defaultActiveTabKey="drivers"
         onTabChange={handleTabChange}
+        tabList={tabList}
       >
         {tabs[activeTabKey]}
       </Card>

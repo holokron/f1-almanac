@@ -1,6 +1,6 @@
 import React from "react"
 import { Row, PageHeader } from "antd"
-import * as styles from "./index.styles.scss"
+import styles from "./index.module.css"
 import { Breadcrumb } from "../../types"
 import { Link, navigate } from "gatsby"
 

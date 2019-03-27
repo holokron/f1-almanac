@@ -1,6 +1,11 @@
 import React from "react"
 import { Table } from "antd"
-import { Driver, DriverStandingsList, Team } from "../../types"
+import {
+  Driver,
+  DriverStandingsList,
+  Team,
+  DriverStandingItem,
+} from "../../types"
 
 interface DriverStandingsTableProps {
   data: DriverStandingsList
@@ -13,14 +18,13 @@ export default React.memo(
     DriverStandingsTableProps
   > => (
     <Table
-      bordered
       bodyStyle={{
         overflowX: "scroll",
       }}
       showHeader
       pagination={false}
       size="small"
-      rowKey="position"
+      rowKey={(item: DriverStandingItem) => item.Driver.driverId}
       columns={[
         {
           title: "Position",
@@ -36,6 +40,7 @@ export default React.memo(
           title: "Nationality",
           dataIndex: "Driver",
           render: (driver: Driver) => driver.nationality,
+          key: "Nationality",
         },
         {
           title: "Team",
