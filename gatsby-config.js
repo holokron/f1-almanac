@@ -3,7 +3,7 @@ module.exports = {
     title: `Formula 1 Almanac`,
     description: `Formula 1 Almanac`,
     author: `Holokron <michalv8@gmail.com>`,
-    keywords: `f1 formula 1 statistics `,
+    keywords: `f1 formula 1 statistics almanac`,
   },
   plugins: [
     {
@@ -28,6 +28,13 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `./data/`
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-tagmanager`,
+      options: {
+        id: process.env.GTM_ID,
+        includeInDevelopment: false,
       },
     },
   ],
