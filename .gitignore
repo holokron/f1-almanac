@@ -69,4 +69,7 @@ yarn-error.log
 .yarn-integrity
 
 data
-__data
+
+# firebase
+.firebase
+firebase-debug.log

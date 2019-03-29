@@ -1,6 +1,6 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
-import { Card, List } from "antd"
+import { Card, List, Typography } from "antd"
 import Base from "./Base"
 import { SeasonsList, Season } from "../types"
 
@@ -49,7 +49,7 @@ export default function Seasons({
           <List.Item>
             <Link to={`/seasons/${season.season}`}>
               <Card hoverable>
-                <strong>{season.season}</strong>
+                <Typography.Text strong>{season.season}</Typography.Text>
               </Card>
             </Link>
           </List.Item>

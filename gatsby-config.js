@@ -2,10 +2,23 @@ module.exports = {
   siteMetadata: {
     title: `Formula 1 Almanac`,
     description: `Formula 1 Almanac`,
-    author: `michalv8@gmail.com`,
+    author: `Holokron <michalv8@gmail.com>`,
+    keywords: `f1 formula 1 statistics `,
   },
   plugins: [
-    `gatsby-plugin-scss-typescript`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Formula 1 Almanac`,
+        short_name: `F1 Almanac`,
+        start_url: `/`,
+        background_color: `#fff`,
+        theme_color: `#001529`,
+        display: `standalone`,
+        icon: `static/logo.png`,
+        include_favicon: true,
+      },
+    },
     `gatsby-plugin-typescript`,
     `gatsby-plugin-typescript-checker`,
     `gatsby-plugin-react-helmet`,
@@ -16,6 +29,6 @@ module.exports = {
       options: {
         path: `./data/`
       },
-    }
+    },
   ],
 }

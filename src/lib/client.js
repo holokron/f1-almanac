@@ -1,9 +1,9 @@
 const create = require("axios").create
 const axiosRetry = require("axios-retry")
 
-exports.create = function(apiHost) {
+exports.create = function() {
   const axios = create({
-    baseURL: apiHost,
+    baseURL: "http://ergast.com/api/f1",
   })
   axiosRetry(axios, {
     retries: 3,

@@ -4,8 +4,7 @@ const program = require("commander")
 const path = require("path")
 const fs = require("fs")
 const { create } = require("../src/lib/client")
-const API_HOST = "http://ergast.com/api/f1"
-const client = create(API_HOST)
+const client = create()
 
 function configure() {
     program
@@ -24,7 +23,7 @@ function execute() {
 
     const seasons = program.allSeasons
         ? getAllSeasons()
-        : program.seasons
+        : program.seasons || ["current"]
 
     console.log(`Seasons: ${seasons.join(", ")}`)
 

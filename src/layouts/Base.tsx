@@ -1,5 +1,5 @@
 import React from "react"
-import { Layout } from "antd"
+import { Layout, Row, Col } from "antd"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import { Breadcrumb } from "../types"
@@ -24,13 +24,17 @@ export default function Base({
         <Header />
       </Layout.Header>
       <Layout.Content style={{ marginTop: 64 }}>
-        <Content
-          title={title}
-          breadcrumbs={breadcrumbs}
-          navigateBack={navigateBack}
-        >
-          {children}
-        </Content>
+        <Row type="flex" justify="center">
+          <Col xs={24} md={24} lg={18}>
+            <Content
+              title={title}
+              breadcrumbs={breadcrumbs}
+              navigateBack={navigateBack}
+            >
+              {children}
+            </Content>
+          </Col>
+        </Row>
       </Layout.Content>
       <Layout.Footer>
         <Footer />
