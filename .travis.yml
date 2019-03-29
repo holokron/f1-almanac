@@ -4,7 +4,7 @@ cache:
     - node_modules
     - data
 script:
-  - npm generate-data
+  - npm run generate-data
   - npm run build
 deploy:
   provider: firebase
