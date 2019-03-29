@@ -1,0 +1,15 @@
+language: node_js
+cache:
+  directories:
+    - node_modules
+    - data
+script:
+  - npm generate-data
+  - npm run build
+deploy:
+  provider: firebase
+  skip_cleanup: true
+  token:
+    secure: $FIREBASE_TOKEN
+  on:
+    branch: master

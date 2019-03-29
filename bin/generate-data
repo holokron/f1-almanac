@@ -15,6 +15,11 @@ function configure() {
 }
 
 function execute() {
+    if (process.env.SKIP_GENERATE_DATA === "1") {
+        console.log("Skipping data generation")
+        return;
+    }
+
     program.parse(process.argv)
 
     const dataDir = path.resolve(program.dataDir)
