@@ -7,6 +7,7 @@
   "dependencies": {
     "antd": "^3.15.2",
     "gatsby": "^2.3.4",
+    "gatsby-plugin-google-tagmanager": "^2.0.12",
     "gatsby-plugin-manifest": "^2.0.26",
     "gatsby-plugin-react-helmet": "^3.0.11",
     "gatsby-plugin-react-svg": "^2.1.1",
@@ -19,6 +20,7 @@
     "react-helmet": "^5.2.0"
   },
   "devDependencies": {
+    "@types/react-helmet": "^5.0.8",
     "axios": "^0.18.0",
     "axios-cache-adapter": "^2.3.0",
     "axios-retry": "^3.1.2",
@@ -35,6 +37,6 @@
     "format": "prettier --write src/**/*.{js,ts,tsx,css}",
     "start": "npm run develop",
     "serve": "GATSBY_TELEMETRY_DISABLED=1 gatsby serve",
-    "generate-data": "bin/generate-data --all-seasons"
+    "generate-data": "bin/generate-data --season 2019"
   }
 }

@@ -4,6 +4,7 @@ import { TeamsList } from "../types"
 import TeamsTable from "../components/TeamsTable"
 import { graphql } from "gatsby"
 import { Card } from "antd"
+import Helmet from "react-helmet"
 
 interface TeamsProps {
   data: {
@@ -26,27 +27,36 @@ export default function Teams({
   const teams = data.dataJson.ConstructorTable.Constructors
 
   return (
-    <Base
-      title={`Teams of season ${season}`}
-      breadcrumbs={[
-        {
-          name: "Home",
-          path: "/",
-        },
-        {
-          name: "Seasons",
-          path: "/seasons",
-        },
-        {
-          name: season,
-          path: `/seasons/${season}`,
-        },
-      ]}
-    >
-      <Card>
-        <TeamsTable data={teams} />
-      </Card>
-    </Base>
+    <>
+      <Helmet>
+        <title>F1 Almanac - Teams of season {season}</title>
+        <meta
+          name="keywords"
+          content={`f1 formula 1 statistics almanac database teams season ${season}`}
+        />
+      </Helmet>
+      <Base
+        title={`Teams of season ${season}`}
+        breadcrumbs={[
+          {
+            name: "Home",
+            path: "/",
+          },
+          {
+            name: "Seasons",
+            path: "/seasons",
+          },
+          {
+            name: season,
+            path: `/seasons/${season}`,
+          },
+        ]}
+      >
+        <Card>
+          <TeamsTable data={teams} />
+        </Card>
+      </Base>
+    </>
   )
 }
 
