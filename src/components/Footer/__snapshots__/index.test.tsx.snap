@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Footer data: "2019" 1`] = `
+<div
+  className="ant-row-flex ant-row-flex-center ant-row-flex-middle"
+  color="green-1"
+>
+  <span
+    aria-label={null}
+    className="ant-typography"
+    style={
+      Object {
+        "WebkitLineClamp": null,
+      }
+    }
+  >
+    v
+    1.2.3
+     © 
+    2019
+     
+    <a
+      href="https://github.com/holokron"
+    >
+      Holokron
+    </a>
+  </span>
+</div>
+`;

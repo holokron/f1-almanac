@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/DriverStandingsTable data: [[Object]] 1`] = `
+exports[`components/RacesTable data: [[Object]] 1`] = `
 <div
   className="ant-table-wrapper"
 >
@@ -72,14 +72,6 @@ exports[`components/DriverStandingsTable data: [[Object]] 1`] = `
                     }
                   }
                 />
-                <col
-                  style={
-                    Object {
-                      "minWidth": undefined,
-                      "width": undefined,
-                    }
-                  }
-                />
               </colgroup>
               <thead
                 className="ant-table-thead"
@@ -101,7 +93,7 @@ exports[`components/DriverStandingsTable data: [[Object]] 1`] = `
                         <span
                           className="ant-table-column-title"
                         >
-                          Position
+                          Round
                         </span>
                         <span
                           className="ant-table-column-sorter"
@@ -119,7 +111,7 @@ exports[`components/DriverStandingsTable data: [[Object]] 1`] = `
                         <span
                           className="ant-table-column-title"
                         >
-                          Driver
+                          Date
                         </span>
                         <span
                           className="ant-table-column-sorter"
@@ -137,7 +129,7 @@ exports[`components/DriverStandingsTable data: [[Object]] 1`] = `
                         <span
                           className="ant-table-column-title"
                         >
-                          Nationality
+                          Name
                         </span>
                         <span
                           className="ant-table-column-sorter"
@@ -155,7 +147,7 @@ exports[`components/DriverStandingsTable data: [[Object]] 1`] = `
                         <span
                           className="ant-table-column-title"
                         >
-                          Team
+                          Circuit
                         </span>
                         <span
                           className="ant-table-column-sorter"
@@ -173,25 +165,7 @@ exports[`components/DriverStandingsTable data: [[Object]] 1`] = `
                         <span
                           className="ant-table-column-title"
                         >
-                          Wins
-                        </span>
-                        <span
-                          className="ant-table-column-sorter"
-                        />
-                      </div>
-                    </span>
-                  </th>
-                  <th
-                    className=""
-                  >
-                    <span
-                      className="ant-table-header-column"
-                    >
-                      <div>
-                        <span
-                          className="ant-table-column-title"
-                        >
-                          Points
+                          Info
                         </span>
                         <span
                           className="ant-table-column-sorter"
@@ -206,7 +180,7 @@ exports[`components/DriverStandingsTable data: [[Object]] 1`] = `
               >
                 <tr
                   className="ant-table-row ant-table-row-level-0"
-                  data-row-key="foo"
+                  data-row-key="1"
                   onClick={[Function]}
                   onContextMenu={[Function]}
                   onDoubleClick={[Function]}
@@ -236,31 +210,30 @@ exports[`components/DriverStandingsTable data: [[Object]] 1`] = `
                     className=""
                     onClick={[Function]}
                   >
+                    2019-01-01
+                  </td>
+                  <td
+                    className=""
+                    onClick={[Function]}
+                  >
                     Foo Bar
                   </td>
                   <td
                     className=""
                     onClick={[Function]}
                   >
-                    bar
+                    Foo Bar
                   </td>
                   <td
                     className=""
                     onClick={[Function]}
                   >
-                    Foo
-                  </td>
-                  <td
-                    className=""
-                    onClick={[Function]}
-                  >
-                    321
-                  </td>
-                  <td
-                    className=""
-                    onClick={[Function]}
-                  >
-                    123
+                    <a
+                      href="https://foo.bar"
+                      target="_blank"
+                    >
+                      Review
+                    </a>
                   </td>
                 </tr>
               </tbody>
@@ -273,7 +246,7 @@ exports[`components/DriverStandingsTable data: [[Object]] 1`] = `
 </div>
 `;
 
-exports[`components/DriverStandingsTable data: [] 1`] = `
+exports[`components/RacesTable data: [] 1`] = `
 <div
   className="ant-table-wrapper"
 >
@@ -345,14 +318,6 @@ exports[`components/DriverStandingsTable data: [] 1`] = `
                     }
                   }
                 />
-                <col
-                  style={
-                    Object {
-                      "minWidth": undefined,
-                      "width": undefined,
-                    }
-                  }
-                />
               </colgroup>
               <thead
                 className="ant-table-thead"
@@ -374,7 +339,7 @@ exports[`components/DriverStandingsTable data: [] 1`] = `
                         <span
                           className="ant-table-column-title"
                         >
-                          Position
+                          Round
                         </span>
                         <span
                           className="ant-table-column-sorter"
@@ -392,7 +357,7 @@ exports[`components/DriverStandingsTable data: [] 1`] = `
                         <span
                           className="ant-table-column-title"
                         >
-                          Driver
+                          Date
                         </span>
                         <span
                           className="ant-table-column-sorter"
@@ -410,7 +375,7 @@ exports[`components/DriverStandingsTable data: [] 1`] = `
                         <span
                           className="ant-table-column-title"
                         >
-                          Nationality
+                          Name
                         </span>
                         <span
                           className="ant-table-column-sorter"
@@ -428,7 +393,7 @@ exports[`components/DriverStandingsTable data: [] 1`] = `
                         <span
                           className="ant-table-column-title"
                         >
-                          Team
+                          Circuit
                         </span>
                         <span
                           className="ant-table-column-sorter"
@@ -446,25 +411,7 @@ exports[`components/DriverStandingsTable data: [] 1`] = `
                         <span
                           className="ant-table-column-title"
                         >
-                          Wins
-                        </span>
-                        <span
-                          className="ant-table-column-sorter"
-                        />
-                      </div>
-                    </span>
-                  </th>
-                  <th
-                    className=""
-                  >
-                    <span
-                      className="ant-table-header-column"
-                    >
-                      <div>
-                        <span
-                          className="ant-table-column-title"
-                        >
-                          Points
+                          Info
                         </span>
                         <span
                           className="ant-table-column-sorter"

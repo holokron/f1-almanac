@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import React, { ReactElement, ReactNode } from "react"
 import { Row, PageHeader } from "antd"
 import styles from "./index.module.css"
 import { Breadcrumb } from "../../types"
@@ -6,7 +6,7 @@ import { Link, navigate } from "gatsby"
 
 interface ContentProps {
   breadcrumbs: Breadcrumb[]
-  children: React.ReactNode
+  children: ReactNode
   title: string
   navigateBack?: string
 }
