@@ -5,7 +5,7 @@ module.exports = {
     keywords: `f1 formula 1 statistics almanac database`,
     author: `Holokron <michalv8@gmail.com>`,
     keywords: `f1 formula 1 statistics almanac`,
-    version: "0.2.0",
+    version: "0.3.0",
     copyright: "2019",
   },
   plugins: [
