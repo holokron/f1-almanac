@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Header title: "Foo Bar" 1`] = `
+<a
+  aria-current="page"
+  className=""
+  href="/"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+  style={Object {}}
+>
+  <div
+    className="ant-row-flex ant-row-flex-center ant-row-flex-middle headerRow"
+  >
+    <test-file-stub
+      className="headerLogo"
+    />
+     
+    <span
+      className="headerSpan"
+    >
+      Foo Bar
+    </span>
+  </div>
+</a>
+`;

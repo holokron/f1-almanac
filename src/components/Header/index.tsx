@@ -1,11 +1,15 @@
-import React from "react"
+import React, { ReactElement } from "react"
 import { Row } from "antd"
 import styles from "./index.module.css"
 import Logo from "./logo.svg"
 import { Link } from "gatsby"
 
-export default React.memo(
-  (): React.ReactElement => (
+interface HeaderProps {
+  title: string
+}
+
+function Header({ title }: HeaderProps): ReactElement<HeaderProps> {
+  return (
     <Link to="/">
       <Row
         className={styles.headerRow}
@@ -14,8 +18,10 @@ export default React.memo(
         justify="center"
       >
         <Logo className={styles.headerLogo} />{" "}
-        <span className={styles.headerSpan}>F1 Almanac</span>
+        <span className={styles.headerSpan}>{title}</span>
       </Row>
     </Link>
-  ),
-)
+  )
+}
+
+export default React.memo(Header)

@@ -6,8 +6,8 @@ export interface Race {
   url: string
   raceName: string
   Circuit: Circuit
-  date: Date
-  time: Date
+  date: string
+  time: string
 }
 
 export type RacesList = Race[]

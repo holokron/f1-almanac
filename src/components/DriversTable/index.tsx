@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactElement } from "react"
 import { Table } from "antd"
 import { DriversList } from "../../types"
 
@@ -7,7 +7,7 @@ interface DriversTableProps {
 }
 
 export default React.memo(
-  ({ data }: DriversTableProps): React.ReactElement<DriversTableProps> => (
+  ({ data }: DriversTableProps): ReactElement<DriversTableProps> => (
     <Table
       bodyStyle={{
         overflowX: "scroll",

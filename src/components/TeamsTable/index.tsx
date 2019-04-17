@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactElement } from "react"
 import { Table } from "antd"
 import { TeamsList } from "../../types"
 
@@ -6,8 +6,8 @@ interface TeamsTableProps {
   data: TeamsList
 }
 
-export default React.memo(
-  ({ data }: TeamsTableProps): React.ReactElement<TeamsTableProps> => (
+function TeamsTable({ data }: TeamsTableProps): ReactElement<TeamsTableProps> {
+  return (
     <Table
       pagination={false}
       size="small"
@@ -33,5 +33,7 @@ export default React.memo(
       ]}
       dataSource={data}
     />
-  ),
-)
+  )
+}
+
+export default React.memo(TeamsTable)

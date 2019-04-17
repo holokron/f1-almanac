@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactElement } from "react"
 import { Table } from "antd"
 import {
   Driver,
@@ -11,12 +11,10 @@ interface DriverStandingsTableProps {
   data: DriverStandingsList
 }
 
-export default React.memo(
-  ({
-    data,
-  }: DriverStandingsTableProps): React.ReactElement<
-    DriverStandingsTableProps
-  > => (
+function DriverStandingsTable({
+  data,
+}: DriverStandingsTableProps): ReactElement<DriverStandingsTableProps> {
+  return (
     <Table
       bodyStyle={{
         overflowX: "scroll",
@@ -59,5 +57,7 @@ export default React.memo(
       ]}
       dataSource={data}
     />
-  ),
-)
+  )
+}
+
+export default React.memo(DriverStandingsTable)

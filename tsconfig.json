@@ -13,7 +13,7 @@
     "inlineSources": true,
     "sourceRoot": "/",
     "allowJs": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "moduleResolution": "node",
     "rootDir": "src",
     "forceConsistentCasingInFileNames": true,

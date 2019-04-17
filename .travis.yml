@@ -5,6 +5,7 @@ cache:
     - data
 script:
   - npm run generate-data
+  - npm run test-ci
   - npm run build
 deploy:
   provider: firebase

@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Content data: "Test" 1`] = `
+<div
+  className="ant-row contentRow"
+>
+  <div
+    className="ant-page-header contentPageHeader"
+  >
+    <div
+      className="ant-breadcrumb"
+    >
+      <span>
+        <span
+          className="ant-breadcrumb-link"
+        >
+          <a
+            href="/foo"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Foo
+          </a>
+        </span>
+        <span
+          className="ant-breadcrumb-separator"
+        >
+          /
+        </span>
+      </span>
+      <span>
+        <span
+          className="ant-breadcrumb-link"
+        >
+          <a
+            href="/bar"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Bar
+          </a>
+        </span>
+        <span
+          className="ant-breadcrumb-separator"
+        >
+          /
+        </span>
+      </span>
+    </div>
+    <div
+      className="ant-page-header-title-view"
+    >
+      <span
+        className="ant-page-header-title-view-title"
+      >
+        Foo Bar
+      </span>
+    </div>
+  </div>
+  Test
+</div>
+`;
