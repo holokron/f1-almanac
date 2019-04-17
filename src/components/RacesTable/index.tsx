@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactElement } from "react"
 import { Table } from "antd"
 import { Circuit, RacesList } from "../../types"
 
@@ -6,8 +6,8 @@ interface RacesTableProps {
   data: RacesList
 }
 
-export default React.memo(
-  ({ data }: RacesTableProps): React.ReactElement<RacesTableProps> => (
+function RacesTable({ data }: RacesTableProps): ReactElement<RacesTableProps> {
+  return (
     <Table
       bodyStyle={{
         overflowX: "scroll",
@@ -45,5 +45,7 @@ export default React.memo(
       ]}
       dataSource={data}
     />
-  ),
-)
+  )
+}
+
+export default React.memo(RacesTable)

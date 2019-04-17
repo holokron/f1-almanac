@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactElement } from "react"
 import { Table } from "antd"
 import { Team, TeamStandingsList, TeamStandingItem } from "../../types"
 
@@ -6,10 +6,10 @@ interface TeamStandingsTableProps {
   data: TeamStandingsList
 }
 
-export default React.memo(
-  ({
-    data,
-  }: TeamStandingsTableProps): React.ReactElement<TeamStandingsTableProps> => (
+function TeamsStandingsTable({
+  data,
+}: TeamStandingsTableProps): ReactElement<TeamStandingsTableProps> {
+  return (
     <Table
       bodyStyle={{
         overflowX: "scroll",
@@ -45,5 +45,7 @@ export default React.memo(
       ]}
       dataSource={data}
     />
-  ),
-)
+  )
+}
+
+export default React.memo(TeamsStandingsTable)
