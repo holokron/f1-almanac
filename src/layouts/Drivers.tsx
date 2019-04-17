@@ -4,7 +4,6 @@ import Base from "./Base"
 import { DriversList } from "../types"
 import DriversTable from "../components/DriversTable"
 import { Card } from "antd"
-import Helmet from "react-helmet"
 
 interface DriversProps {
   pageContext: {
@@ -27,36 +26,31 @@ export default function Drivers({
   const drivers = data.dataJson.DriverTable.Drivers
 
   return (
-    <>
-      <Helmet>
-        <title>F1 Almanac - Drivers of season {season}</title>
-        <meta
-          name="keywords"
-          content={`f1 formula 1 statistics almanac database drivers season ${season}`}
-        />
-      </Helmet>
-      <Base
-        title={`Drivers of season ${season}`}
-        breadcrumbs={[
-          {
-            name: "Home",
-            path: "/",
-          },
-          {
-            name: "Seasons",
-            path: "/seasons",
-          },
-          {
-            name: season,
-            path: `/seasons/${season}`,
-          },
-        ]}
-      >
-        <Card>
-          <DriversTable data={drivers} />
-        </Card>
-      </Base>
-    </>
+    <Base
+      metadata={{
+        keywords: `f1 formula 1 statistics almanac database drivers season ${season}`,
+        siteTitle: `Drivers of season ${season}`,
+      }}
+      title={`Drivers of season ${season}`}
+      breadcrumbs={[
+        {
+          name: "Home",
+          path: "/",
+        },
+        {
+          name: "Seasons",
+          path: "/seasons",
+        },
+        {
+          name: season,
+          path: `/seasons/${season}`,
+        },
+      ]}
+    >
+      <Card>
+        <DriversTable data={drivers} />
+      </Card>
+    </Base>
   )
 }
 

@@ -2,8 +2,11 @@ module.exports = {
   siteMetadata: {
     title: `Formula 1 Almanac`,
     description: `Formula 1 Almanac`,
+    keywords: `f1 formula 1 statistics almanac database`,
     author: `Holokron <michalv8@gmail.com>`,
     keywords: `f1 formula 1 statistics almanac`,
+    version: "0.2.0",
+    copyright: "2019",
   },
   plugins: [
     {

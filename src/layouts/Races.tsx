@@ -4,7 +4,6 @@ import { RacesList } from "../types"
 import RacesTable from "../components/RacesTable"
 import { graphql } from "gatsby"
 import { Card } from "antd"
-import Helmet from "react-helmet"
 
 interface RacesProps {
   pageContext: {
@@ -27,36 +26,31 @@ export default function Races({
   const races = data.dataJson.RaceTable.Races
 
   return (
-    <>
-      <Helmet>
-        <title>F1 Almanac - Races of season {season}</title>
-        <meta
-          name="keywords"
-          content={`f1 formula 1 statistics almanac database races season ${season}`}
-        />
-      </Helmet>
-      <Base
-        title={`Races of season ${season}`}
-        breadcrumbs={[
-          {
-            name: "Home",
-            path: "/",
-          },
-          {
-            name: "Seasons",
-            path: "/seasons",
-          },
-          {
-            name: season,
-            path: `/seasons/${season}`,
-          },
-        ]}
-      >
-        <Card>
-          <RacesTable data={races} />
-        </Card>
-      </Base>
-    </>
+    <Base
+      metadata={{
+        keywords: `f1 formula 1 statistics almanac database races season ${season}`,
+        siteTitle: `Races of season ${season}`,
+      }}
+      title={`Races of season ${season}`}
+      breadcrumbs={[
+        {
+          name: "Home",
+          path: "/",
+        },
+        {
+          name: "Seasons",
+          path: "/seasons",
+        },
+        {
+          name: season,
+          path: `/seasons/${season}`,
+        },
+      ]}
+    >
+      <Card>
+        <RacesTable data={races} />
+      </Card>
+    </Base>
   )
 }
 

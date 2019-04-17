@@ -28,7 +28,7 @@ function execute() {
 
     const seasons = program.allSeasons
         ? getAllSeasons()
-        : program.seasons || ["current"]
+        : program.season || ["current"]
 
     console.log(`Seasons: ${seasons.join(", ")}`)
 

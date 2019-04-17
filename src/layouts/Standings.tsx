@@ -5,7 +5,6 @@ import { graphql } from "gatsby"
 import { TeamStandingsList, DriverStandingsList } from "../types"
 import DriverStandingsTable from "../components/DriverStandingsTable"
 import TeamsStandingsTable from "../components/TeamsStandingsTable"
-import Helmet from "react-helmet"
 
 interface StandingsProps {
   data: {
@@ -64,41 +63,36 @@ export default function Standings({
   ]
 
   return (
-    <>
-      <Helmet>
-        <title>F1 Almanac - Standings of season {season}</title>
-        <meta
-          name="keywords"
-          content={`f1 formula 1 statistics almanac database drivers teams standings season ${season}`}
-        />
-      </Helmet>
-      <Base
-        title={`Standings of season ${season}`}
-        breadcrumbs={[
-          {
-            name: "Home",
-            path: "/",
-          },
-          {
-            name: "Seasons",
-            path: "/seasons",
-          },
-          {
-            name: season,
-            path: `/seasons/${season}`,
-          },
-        ]}
+    <Base
+      metadata={{
+        keywords: `f1 formula 1 statistics almanac database drivers teams standings season ${season}`,
+        siteTitle: `Standings of season ${season}`,
+      }}
+      title={`Standings of season ${season}`}
+      breadcrumbs={[
+        {
+          name: "Home",
+          path: "/",
+        },
+        {
+          name: "Seasons",
+          path: "/seasons",
+        },
+        {
+          name: season,
+          path: `/seasons/${season}`,
+        },
+      ]}
+    >
+      <Card
+        activeTabKey={activeTabKey}
+        defaultActiveTabKey="drivers"
+        onTabChange={handleTabChange}
+        tabList={tabList}
       >
-        <Card
-          activeTabKey={activeTabKey}
-          defaultActiveTabKey="drivers"
-          onTabChange={handleTabChange}
-          tabList={tabList}
-        >
-          {tabs[activeTabKey]}
-        </Card>
-      </Base>
-    </>
+        {tabs[activeTabKey]}
+      </Card>
+    </Base>
   )
 }
 
