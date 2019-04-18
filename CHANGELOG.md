@@ -3,6 +3,7 @@
 ## [0.3.1] - 2019-04-18
 ### Changed
 - Updated docs
+- Tests coverage collection
 
 ### Fixed
 - Fixed command to download data
