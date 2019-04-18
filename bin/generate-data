@@ -8,8 +8,8 @@ const client = create()
 
 function configure() {
     program
-        .version("0.1.0")
-        .option("-a, --all-seasons", "Download data from all season", false)
+        .version("0.2.0")
+        .option("-a, --all-seasons", "Download data from all seasons", false)
         .option("-s, --season <season>", "Season", (season, seasons) => { seasons.push(season); return seasons }, [])
         .option("-d, --data-dir <dir>", "Directory for data", `${__dirname}/../data`)    
 }
@@ -26,9 +26,11 @@ function execute() {
 
     console.log(`Data directory: ${dataDir}`)
 
-    const seasons = program.allSeasons
+    const seasons = program.allSeasons || "1" === process.env.DOWNLOAD_ALL_DATA
         ? getAllSeasons()
-        : program.season || ["current"]
+        : program.season.length
+            ? program.season
+            : ["2019"]
 
     console.log(`Seasons: ${seasons.join(", ")}`)
 

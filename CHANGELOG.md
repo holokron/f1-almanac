@@ -1,6 +1,13 @@
 # CHANGELOG
 
-## [0.2.0] - 2019-04-17
+## [0.3.1] - 2019-04-18
+### Changed
+- Updated docs
+
+### Fixed
+- Fixed command to download data
+
+## [0.3.0] - 2019-04-17
 ### Added
 - Metadata component
 - Lots of tests
