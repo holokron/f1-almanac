@@ -45,8 +45,7 @@
     "format": "prettier --write src/**/*.{js,ts,tsx,css}",
     "start": "npm run develop",
     "serve": "GATSBY_TELEMETRY_DISABLED=1 gatsby serve",
-    "generate-data": "bin/generate-data --season 2019",
-    "test": "jest --watch",
-    "test-ci": "jest"
+    "generate-data": "bin/generate-data",
+    "test": "jest"
   }
 }

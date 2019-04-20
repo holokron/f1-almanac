@@ -1,4 +1,6 @@
 module.exports = {
+  coverageDirectory: "<rootDir>/.coverage",
+  collectCoverage: true,
   roots: ["<rootDir>/src"],
   transform: {
     "^.+\\.tsx?$": "ts-jest",
