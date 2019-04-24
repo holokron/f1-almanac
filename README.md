@@ -8,7 +8,7 @@
 # <p align="center">Formula 1 Almanac</p>
 
 [![Build Status](https://travis-ci.org/holokron/f1-almanac.svg?branch=master)](https://travis-ci.org/holokron/f1-almanac) 
-[![codecov](https://codecov.io/gh/holokron/f1-almanac/branch/master/graph/badge.svg)](https://codecov.io/gh/holokron/f1-almanac)
+[![codecov](https://codecov.io/gh/holokron/f1-almanac/branch/master/graph/badge.svg)](https://codecov.io/gh/holokron/f1-almanac) [![Greenkeeper badge](https://badges.greenkeeper.io/holokron/f1-almanac.svg)](https://greenkeeper.io/)
 
 ## Install
 
