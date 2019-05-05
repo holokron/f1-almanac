@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react"
 import { Table } from "antd"
 import { Circuit, RacesList } from "../../types"
+import ExternalLink from "../ExternalLink"
 
 interface RacesTableProps {
   data: RacesList
@@ -37,9 +38,9 @@ function RacesTable({ data }: RacesTableProps): ReactElement<RacesTableProps> {
           title: "Info",
           dataIndex: "url",
           render: (url: string) => (
-            <a href={url} target="_blank">
-              Review
-            </a>
+            <>
+              <ExternalLink title="Review" url={url} />
+            </>
           ),
         },
       ]}

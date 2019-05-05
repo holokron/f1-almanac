@@ -13,19 +13,15 @@ exports.createPages = ({ actions, graphql }) => {
 
   graphql(`
     {
-      dataJson(
-        SeasonTable: { Seasons: { elemMatch: { season: { ne: null } } } }
-      ) {
-        SeasonTable {
-          Seasons {
-            season
-            url
-          }
+      allSeasonsJson (sort: { fields: [season] order: DESC }) {
+        nodes {
+          season
+          url
         }
       }
     }
   `).then(result => {
-    result.data.dataJson.SeasonTable.Seasons.forEach(season => {
+    result.data.allSeasonsJson.nodes.forEach(season => {
       promises.push(
         createPage({
           path: `/seasons/${season.season}`,
@@ -80,3 +76,4 @@ exports.createPages = ({ actions, graphql }) => {
 
   return Promise.all(promises)
 }
+

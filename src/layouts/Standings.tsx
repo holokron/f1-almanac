@@ -8,17 +8,9 @@ import TeamsStandingsTable from "../components/TeamsStandingsTable"
 
 interface StandingsProps {
   data: {
-    allDataJson: {
-      nodes: {
-        StandingsTable: {
-          StandingsLists: {
-            season: string
-            round: string
-            ConstructorStandings: null | TeamStandingsList
-            DriverStandings: null | DriverStandingsList
-          }[]
-        }
-      }[]
+    standingsJson: {      
+      ConstructorStandings: null | TeamStandingsList
+      DriverStandings: null | DriverStandingsList
     }
   }
   pageContext: {
@@ -31,16 +23,9 @@ export default function Standings({
   pageContext,
 }: StandingsProps): React.ReactElement<StandingsProps> {
   const season = pageContext.season
-  const teamsStandings =
-    data.allDataJson.nodes[0].StandingsTable.StandingsLists.length > 0
-      ? data.allDataJson.nodes[0].StandingsTable.StandingsLists[0]
-          .ConstructorStandings || []
-      : []
-  const driversStandings =
-    data.allDataJson.nodes[1].StandingsTable.StandingsLists.length > 0
-      ? data.allDataJson.nodes[1].StandingsTable.StandingsLists[0]
-          .DriverStandings || []
-      : []
+
+  const driversStandings = data.standingsJson.DriverStandings || []
+  const teamsStandings = data.standingsJson.ConstructorStandings || []
 
   const [activeTabKey, setTabKey] = useState("drivers")
 
@@ -98,47 +83,39 @@ export default function Standings({
 
 export const query = graphql`
   query($season: Date!) {
-    allDataJson(filter: { StandingsTable: { season: { eq: $season } } }) {
-      nodes {
-        StandingsTable {
-          StandingsLists {
-            season
-            round
-            ConstructorStandings {
-              position
-              positionText
-              points
-              wins
-              Constructor {
-                constructorId
-                url
-                name
-                nationality
-              }
-            }
-            DriverStandings {
-              position
-              positionText
-              points
-              wins
-              Driver {
-                driverId
-                url
-                givenName
-                familyName
-                dateOfBirth
-                nationality
-                code
-                permanentNumber
-              }
-              Constructors {
-                constructorId
-                url
-                name
-                nationality
-              }
-            }
-          }
+    standingsJson(season: { eq: $season }) {
+      ConstructorStandings {
+        position
+        positionText
+        points
+        wins
+        Constructor {
+          constructorId
+          url
+          name
+          nationality
+        }
+      }
+      DriverStandings {
+        position
+        positionText
+        points
+        wins
+        Driver {
+          driverId
+          url
+          givenName
+          familyName
+          dateOfBirth
+          nationality
+          code
+          permanentNumber
+        }
+        Constructors {
+          constructorId
+          url
+          name
+          nationality
         }
       }
     }

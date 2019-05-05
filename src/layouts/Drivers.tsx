@@ -10,10 +10,8 @@ interface DriversProps {
     season: string
   }
   data: {
-    dataJson: {
-      DriverTable: {
-        Drivers: DriversList
-      }
+    driversPerSeasonJson: {
+      Drivers: DriversList
     }
   }
 }
@@ -23,7 +21,7 @@ export default function Drivers({
   pageContext,
 }: DriversProps): React.ReactElement<DriversProps> {
   const season = pageContext.season
-  const drivers = data.dataJson.DriverTable.Drivers
+  const drivers = data.driversPerSeasonJson.Drivers
 
   return (
     <Base
@@ -56,19 +54,16 @@ export default function Drivers({
 
 export const query = graphql`
   query($season: Date!) {
-    dataJson(DriverTable: { season: { eq: $season } }) {
-      DriverTable {
-        season
-        Drivers {
-          driverId
-          url
-          givenName
-          familyName
-          dateOfBirth
-          nationality
-          code
-          permanentNumber
-        }
+    driversPerSeasonJson(season: { eq: $season }) {
+      Drivers {
+        driverId
+        url
+        givenName
+        familyName
+        dateOfBirth
+        nationality
+        code
+        permanentNumber
       }
     }
   }

@@ -4,6 +4,8 @@ const program = require("commander")
 const path = require("path")
 const fs = require("fs")
 const { create } = require("../src/lib/client")
+const merge = require("lodash/merge")
+const omit = require("lodash/omit")
 const client = create()
 
 function configure() {
@@ -34,7 +36,7 @@ function execute() {
 
     console.log(`Seasons: ${seasons.join(", ")}`)
 
-    Promise.all(seasons.map(season => downloadData(season, dataDir)))
+    Promise.all(seasons.map(season => downloadSeasonData(season, dataDir)))
 }
 
 function getAllSeasons() {
@@ -49,7 +51,7 @@ function saveResponse(response, path) {
     fs.writeFileSync(path, data)
 }
 
-function downloadData(season, dir) {
+async function downloadSeasonData(season, dir) {
     const seasonDir = dir
     if (!fs.existsSync(seasonDir)) {
         fs.mkdirSync(seasonDir, {
@@ -58,55 +60,66 @@ function downloadData(season, dir) {
     }
 
     return Promise.all([
-        downloadSeasonsData(seasonDir),
-        downloadDriversData(season, seasonDir),
-        downloadConstructorsData(season, seasonDir),
-        downloadRacesData(season, seasonDir),
-        downloadDriversStandingsData(season, seasonDir),
-        downloadConstructorsStandingsData(season, seasonDir),
+        downloadSeasonsData(dir),
+        downloadDriversPerSeasonData(season, dir),
+        downloadConstructorsPerSeasonData(season, dir),
+        downloadRacesData(season, dir),
+        downloadStandings(season, dir),
     ])
     .catch(error => {
-        console.log(`Incomplete data for season: ${seasons} - ${error}`)
+        console.log(`Incomplete data for season: ${season} - ${error}`)
     })
-    .then(() => {
+    .then((response) => {
+
         console.log(`Downloaded data for season: ${season}.`)    
     })
 }
 
-async function downloadSeasonsData(seasonDir) {
+async function downloadSeasonsData(dir) {
     const response = await client.getSeasonsList()
 
-    saveResponse(response.MRData, `${seasonDir}/seasons.json`)
+    response.MRData.SeasonTable.Seasons.forEach((item) => {
+        saveResponse(item, `${dir}/seasons/${item.season}.json`)
+    })
 }
 
-async function downloadDriversData(season, seasonDir) {
+async function downloadDriversPerSeasonData(season, dir) {
     const response = await client.getDriversForSeason(season)
 
-    saveResponse(response.MRData, `${seasonDir}/${season}-drivers.json`)
+    saveResponse(response.MRData.DriverTable, `${dir}/driversPerSeason/${season}.json`)
 }
 
-async function downloadConstructorsData(season, seasonDir) {
+async function downloadConstructorsPerSeasonData(season, dir) {
     const response = await client.getConstructorsForSeason(season)
 
-    saveResponse(response.MRData, `${seasonDir}/${season}-constructors.json`)
+    saveResponse(response.MRData.ConstructorTable, `${dir}/constructorsPerSeason/${season}.json`)
 }
 
-async function downloadRacesData(season, seasonDir) {
-    const response = await client.getRacesForSeason(season)
+async function downloadRacesData(season, dir) {
+    const racesResponse = await client.getRacesForSeason(season)
+    const racesQualifyingResultsResponse = await client.getRacesQualifyingResultsForSeason(season)
+    const racesResultsResponse = await client.getRacesResultsForSeason(season)
 
-    saveResponse(response.MRData, `${seasonDir}/${season}-races.json`)
+    merge(
+        racesResponse.MRData.RaceTable,
+        racesResultsResponse.MRData.RaceTable,
+        racesQualifyingResultsResponse.MRData.RaceTable,
+    ).Races.forEach(item => {
+        saveResponse(item, `${dir}/races/${item.season}-${item.round}.json`)
+    })
 }
 
-async function downloadDriversStandingsData(season, seasonDir) {
+async function downloadStandings(season, dir) {
     const driversStandingsResponse = await client.getDriversStandingsForSeason(season)
-
-    saveResponse(driversStandingsResponse.MRData, `${seasonDir}/${season}-driver-standings.json`)
-}
-
-async function downloadConstructorsStandingsData(season, seasonDir) {
     const constructorsStandingsResponse = await client.getConstructorsStandingsForSeason(season)
+    
+    merge(
+        driversStandingsResponse.MRData.StandingsTable,
+        constructorsStandingsResponse.MRData.StandingsTable,
+    ).StandingsLists.forEach(item => {
 
-    saveResponse(constructorsStandingsResponse.MRData, `${seasonDir}/${season}-constructor-standings.json`)
+        saveResponse(item, `${dir}/standings/${season}.json`)
+    })
 }
 
 configure()

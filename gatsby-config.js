@@ -30,7 +30,36 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `./data/`,
+        name: "races",
+        path: `./data/races`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: "standings",
+        path: `./data/standings`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: "driversPerSeason",
+        path: `./data/driversPerSeason`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: "constructorsPerSeason",
+        path: `./data/constructorsPerSeason`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: "seasons",
+        path: `./data/seasons`,
       },
     },
     {

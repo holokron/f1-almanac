@@ -7,10 +7,8 @@ import { Card } from "antd"
 
 interface TeamsProps {
   data: {
-    dataJson: {
-      ConstructorTable: {
-        Constructors: TeamsList
-      }
+    constructorsPerSeasonJson: {
+      Constructors: TeamsList
     }
   }
   pageContext: {
@@ -23,7 +21,7 @@ export default function Teams({
   pageContext,
 }: TeamsProps): React.ReactElement<TeamsProps> {
   const season = pageContext.season
-  const teams = data.dataJson.ConstructorTable.Constructors
+  const teams = data.constructorsPerSeasonJson.Constructors
 
   return (
     <Base
@@ -56,15 +54,13 @@ export default function Teams({
 
 export const query = graphql`
   query($season: Date!) {
-    dataJson(ConstructorTable: { season: { eq: $season } }) {
-      ConstructorTable {
-        season
-        Constructors {
-          constructorId
-          url
-          name
-          nationality
-        }
+    constructorsPerSeasonJson(season: { eq: $season }) {
+      season
+      Constructors {
+        constructorId
+        url
+        name
+        nationality
       }
     }
   }

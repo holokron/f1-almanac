@@ -41,5 +41,21 @@ exports.create = function() {
           },
         })
         .then(response => response.data),
+    getRacesQualifyingResultsForSeason: season =>
+      axios
+        .get(`/${season}/qualifying.json`, {
+          params: {
+            limit: 1000,
+          },
+        })
+        .then(response => response.data),
+    getRacesResultsForSeason: season =>
+      axios
+        .get(`/${season}/results.json`, {
+          params: {
+            limit: 1000,
+          },
+        })
+        .then(response => response.data),
   }
 }

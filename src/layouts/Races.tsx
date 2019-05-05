@@ -10,10 +10,8 @@ interface RacesProps {
     season: string
   }
   data: {
-    dataJson: {
-      RaceTable: {
-        Races: RacesList
-      }
+    allRacesJson: {
+      nodes: RacesList
     }
   }
 }
@@ -23,7 +21,7 @@ export default function Races({
   pageContext,
 }: RacesProps): React.ReactElement<RacesProps> {
   const season = pageContext.season
-  const races = data.dataJson.RaceTable.Races
+  const races = data.allRacesJson.nodes
 
   return (
     <Base
@@ -56,28 +54,25 @@ export default function Races({
 
 export const query = graphql`
   query($season: Date!) {
-    dataJson(RaceTable: { season: { eq: $season } }) {
-      RaceTable {
+    allRacesJson(filter: { season: { eq: $season } }  sort: { fields: [date] order: ASC }) {
+      nodes {
         season
-        Races {
-          season
-          round
+        round
+        url
+        raceName
+        Circuit {
+          circuitId
           url
-          raceName
-          Circuit {
-            circuitId
-            url
-            circuitName
-            Location {
-              lat
-              long
-              locality
-              country
-            }
+          circuitName
+          Location {
+            lat
+            long
+            locality
+            country
           }
-          date
-          time
         }
+        date
+        time
       }
     }
   }

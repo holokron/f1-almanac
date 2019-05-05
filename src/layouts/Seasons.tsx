@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactElement } from "react"
 import { Link, graphql } from "gatsby"
 import { Card, List, Typography } from "antd"
 import Base from "./Base"
@@ -6,18 +6,16 @@ import { SeasonsList, Season } from "../types"
 
 interface SeasonsProps {
   data: {
-    dataJson: {
-      SeasonTable: {
-        Seasons: SeasonsList
-      }
+    allSeasonsJson: {
+      nodes: SeasonsList
     }
   }
 }
 
 export default function Seasons({
   data,
-}: SeasonsProps): React.ReactElement<SeasonsProps> {
-  const seasons = data.dataJson.SeasonTable.Seasons.reverse()
+}: SeasonsProps): ReactElement<SeasonsProps> {
+  const seasons = data.allSeasonsJson.nodes
 
   return (
     <Base
@@ -65,14 +63,10 @@ export default function Seasons({
 
 export const query = graphql`
   query {
-    dataJson(
-      SeasonTable: { Seasons: { elemMatch: { season: { ne: null } } } }
-    ) {
-      SeasonTable {
-        Seasons {
-          season
-          url
-        }
+    allSeasonsJson(sort: { fields: [season], order: DESC }) {
+      nodes {
+        season
+        url
       }
     }
   }
