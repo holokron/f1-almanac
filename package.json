@@ -24,7 +24,7 @@
     "@types/jest": "^24.0.11",
     "@types/react-helmet": "^5.0.8",
     "@types/react-test-renderer": "^16.8.1",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "axios-cache-adapter": "^2.3.0",
     "axios-retry": "^3.1.2",
     "babel-jest": "^24.7.1",
