@@ -22,7 +22,7 @@ export default function MobileNav(): JSX.Element {
           <Menu />
         </label>
       </SheetTrigger>
-      <SheetContent position="left" size="full">
+      <SheetContent side="left">
         <SheetTitle>
           <Link className="btn-ghost btn" href="/">
             F1 Almanac
