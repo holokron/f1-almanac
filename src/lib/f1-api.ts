@@ -53,7 +53,7 @@ async function request<ResponseType>(
 
   const url = new URL(
     `${path}?limit=${limit}&offset=${offset}`,
-    "http://ergast.com"
+    "https://ergast.com"
   );
 
   try {
